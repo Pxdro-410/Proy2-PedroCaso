@@ -37,7 +37,7 @@ services:
     build: ./frontend
     restart: always
     ports:
-      - "5173:80"
+      - "41286:80" # mi carnet para acceder a la app (241286) al ser un numero tan alto el 2 se omite para evitar problemas 
     depends_on:
       - backend
 
