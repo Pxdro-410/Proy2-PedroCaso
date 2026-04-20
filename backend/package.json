@@ -1,0 +1,14 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "nitropack dev",
+    "build": "nitropack build",
+    "start": "node .output/server/index.mjs"
+  },
+  "dependencies": {
+    "nitropack": "^2.13.3",
+    "pg": "^8.13.3",
+    "dotenv": "^16.5.0"
+  }
+}
