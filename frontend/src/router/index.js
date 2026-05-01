@@ -3,11 +3,34 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
+    name: 'Home',
     component: () => import('../views/HomeView.vue')
   },
   {
+    path: '/productos',
+    name: 'Productos',
+    component: () => import('../views/ProductosView.vue')
+  },
+  {
+    path: '/categorias',
+    name: 'Categorias',
+    component: () => import('../views/CategoriasView.vue')
+  },
+  {
+    path: '/ventas',
+    name: 'Ventas',
+    component: () => import('../views/VentasView.vue')
+  },
+  {
+    path: '/reportes',
+    name: 'Reportes',
+    component: () => import('../views/ReportesView.vue')
+  },
+  {
     path: '/login',
-    component: () => import('../views/LoginView.vue')
+    name: 'Login',
+    component: () => import('../views/LoginView.vue'),
+    meta: { layout: 'blank' }
   }
 ]
 
