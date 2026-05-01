@@ -144,7 +144,7 @@ INSERT INTO usuario (id_empleado, username, password_hash) VALUES
 (23, 'avega', '$2b$10$xyz123hashgenerico...'),
 (24, 'irios', '$2b$10$xyz123hashgenerico...'),
 (25, 'mmarin', '$2b$10$xyz123hashgenerico...'),
-(26, 'admin', '$2a$12$D2Mv39.x4g1v1G/Bq5j1sOQc.u.W9Z6c.Xn05fQy9R.q.K.1y4p.G'); -- Hash real para 'admin123'
+(26, 'admin', '$2b$10$sClJJB7j3Spdmq7O15S6P.xUmCM8rwm2B1oMutC0KpL2vWLWASaJy'); -- Hash real para 'admin123'
 
 -- 6. PRODUCTOS
 INSERT INTO producto (nombre, precio_actual, stock, id_categoria, id_proveedor) VALUES 
