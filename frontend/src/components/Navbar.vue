@@ -12,10 +12,26 @@
       <RouterLink to="/reportes" class="nav-link" active-class="active">Reportes</RouterLink>
     </div>
     <div class="nav-actions">
-      <div class="user-avatar">AD</div>
+      <div v-if="authStore.user" class="user-info">
+        <span class="user-name">{{ authStore.user.nombre }}</span>
+        <button @click="handleLogout" class="btn-logout" title="Cerrar sesión">Salir</button>
+      </div>
     </div>
   </nav>
 </template>
+
+<script setup>
+import { useAuthStore } from '../stores/auth'
+import { useRouter } from 'vue-router'
+
+const authStore = useAuthStore()
+const router = useRouter()
+
+const handleLogout = () => {
+  authStore.logout()
+  router.push('/login')
+}
+</script>
 
 <style scoped>
 .navbar {
@@ -66,17 +82,28 @@
   background: rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
-.user-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--bg-dark);
-  border: 1px solid var(--border-color);
+.user-info {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 1rem;
+}
+.user-name {
   font-weight: 600;
   font-size: 0.9rem;
-  color: var(--accent-primary);
+  color: var(--text-primary);
+}
+.btn-logout {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-logout:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fef2f2;
 }
 </style>

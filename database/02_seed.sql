@@ -113,7 +113,8 @@ INSERT INTO empleado (nombre_completo, puesto, correo, dpi) VALUES
 ('Rosa Castro', 'Gerente', 'rosa.castro@tienda.com', '1234567890122'),
 ('Alberto Vega', 'Almacenista', 'alberto.vega@tienda.com', '1234567890123'),
 ('Isabel Rios', 'Vendedora', 'isabel.rios@tienda.com', '1234567890124'),
-('Miguel Marin', 'Cajero', 'miguel.marin@tienda.com', '1234567890125');
+('Miguel Marin', 'Cajero', 'miguel.marin@tienda.com', '1234567890125'),
+('Admin', 'Administrador', 'admin@tienda.com', '0000000000000');
 
 -- 5. USUARIOS
 -- (Usamos un hash genérico simulando bcrypt para la contraseña '12345')
@@ -142,7 +143,8 @@ INSERT INTO usuario (id_empleado, username, password_hash) VALUES
 (22, 'rcastro', '$2b$10$xyz123hashgenerico...'),
 (23, 'avega', '$2b$10$xyz123hashgenerico...'),
 (24, 'irios', '$2b$10$xyz123hashgenerico...'),
-(25, 'mmarin', '$2b$10$xyz123hashgenerico...');
+(25, 'mmarin', '$2b$10$xyz123hashgenerico...'),
+(26, 'admin', '$2a$12$D2Mv39.x4g1v1G/Bq5j1sOQc.u.W9Z6c.Xn05fQy9R.q.K.1y4p.G'); -- Hash real para 'admin123'
 
 -- 6. PRODUCTOS
 INSERT INTO producto (nombre, precio_actual, stock, id_categoria, id_proveedor) VALUES 
