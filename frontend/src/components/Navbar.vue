@@ -7,7 +7,7 @@
     <div class="nav-links">
       <RouterLink to="/" class="nav-link" active-class="active">Dashboard</RouterLink>
       <RouterLink to="/productos" class="nav-link" active-class="active">Productos</RouterLink>
-      <RouterLink to="/categorias" class="nav-link" active-class="active">Categorías</RouterLink>
+      <RouterLink to="/clientes" class="nav-link" active-class="active">Clientes</RouterLink>
       <RouterLink to="/ventas" class="nav-link" active-class="active">Ventas</RouterLink>
       <RouterLink to="/reportes" class="nav-link" active-class="active">Reportes</RouterLink>
     </div>

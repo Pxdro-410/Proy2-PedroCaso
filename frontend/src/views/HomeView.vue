@@ -14,8 +14,8 @@
         <h4>Productos</h4>
       </div>
       <div class="glass-panel p-6" style="text-align: center;">
-        <h3 style="color: var(--accent-secondary); margin-bottom: 0.5rem; font-size: 2rem;">🏷️</h3>
-        <h4>Categorías</h4>
+        <h3 style="color: var(--accent-secondary); margin-bottom: 0.5rem; font-size: 2rem;">👥</h3>
+        <h4>Clientes</h4>
       </div>
       <div class="glass-panel p-6" style="text-align: center;">
         <h3 style="color: var(--success); margin-bottom: 0.5rem; font-size: 2rem;">💰</h3>
