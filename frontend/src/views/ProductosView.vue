@@ -1,0 +1,15 @@
+<template>
+  <div class="page-container">
+    <div class="header-actions" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+      <h1 class="page-title" style="margin-bottom: 0;">Gestión de Productos</h1>
+      <button class="btn-primary">+ Nuevo Producto</button>
+    </div>
+    
+    <div class="glass-panel p-6">
+      <div class="empty-state" style="text-align: center; padding: 3rem 0;">
+        <h3 style="margin-bottom: 1rem; color: var(--text-primary)">Módulo en construcción</h3>
+        <p class="text-secondary">Aquí irá el CRUD de Productos (Próximo paso según el plan).</p>
+      </div>
+    </div>
+  </div>
+</template>
