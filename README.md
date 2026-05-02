@@ -73,13 +73,8 @@ cp .env.example .env
 ```
 
 Contenido del `.env`:
+En los comentarios de la entrega.
 
-```env
-DB_USER=proy2
-DB_PASSWORD=secret
-DB_NAME=tienda_db
-JWT_SECRET=supersecretkey123
-```
 
 ### 3. Levantar con Docker Compose
 
@@ -176,10 +171,14 @@ docker compose down -v
 ---
 
 ## Variables de entorno
-
+nota: aunque se sabe que no se debe agregar el .env, por ser un proyecto académico de práctica se agrega en los comentarios de la entrega para comodidad de los auxiliares
 | Variable | Descripción |
 |---|---|
 | `DB_USER` | Usuario de PostgreSQL (debe ser `proy2`) |
 | `DB_PASSWORD` | Contraseña de PostgreSQL (debe ser `secret`) |
 | `DB_NAME` | Nombre de la base de datos |
 | `JWT_SECRET` | Clave secreta para firmar tokens JWT |
+
+## Informe del proyecto
+[Proyecto2Datos - Pedro Caso.docx](https://github.com/user-attachments/files/27294999/Proyecto2Datos.-.Pedro.Caso.docx)
+
