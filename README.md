@@ -2,6 +2,7 @@
 
 **Curso:** Bases de Datos 1 - Universidad del Valle de Guatemala  
 **Autor:** Pedro Caso – 241286  
+**Puntuación esperada:** 130/140
 
 ---
 
