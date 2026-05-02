@@ -31,8 +31,8 @@
             <td>{{ prod.nombre_categoria }}</td>
             <td>{{ prod.nombre_proveedor }}</td>
             <td>
-              <button class="btn-icon" title="Editar" @click="editProduct(prod.id_producto)">✏️</button>
-              <button class="btn-icon text-danger" title="Eliminar" @click="deleteProduct(prod.id_producto)">🗑️</button>
+              <button class="btn-text" title="Editar" @click="editProduct(prod.id_producto)">Editar</button>
+              <button class="btn-text text-danger" title="Eliminar" @click="deleteProduct(prod.id_producto)">Eliminar</button>
             </td>
           </tr>
           <tr v-if="productos.length === 0">
@@ -247,23 +247,28 @@ onMounted(() => {
 .data-table tbody tr:hover {
   background: rgba(255,255,255,0.05);
 }
-.btn-icon {
+.btn-text {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.2rem;
-  margin-right: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin-right: 0.75rem;
   opacity: 0.8;
-  transition: opacity 0.2s;
+  transition: all 0.2s;
 }
-.btn-icon:hover {
+.btn-text:hover {
   opacity: 1;
-  transform: scale(1.1);
+  text-decoration: underline;
+}
+.btn-text.text-danger {
+  color: var(--danger);
 }
 
 .badge-danger {
   background: rgba(239, 68, 68, 0.2);
-  color: #fca5a5;
+  color: #3b0101;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-size: 0.85rem;
@@ -271,7 +276,7 @@ onMounted(() => {
 }
 .badge-success {
   background: rgba(16, 185, 129, 0.2);
-  color: #6ee7b7;
+  color: #004e2f;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-size: 0.85rem;
@@ -294,9 +299,9 @@ onMounted(() => {
 }
 .modal-content {
   width: 100%;
-  max-width: 500px;
+  max-width: 650px;
   padding: 2rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
   animation: modal-in 0.3s ease-out;
 }
 @keyframes modal-in {
@@ -324,7 +329,7 @@ onMounted(() => {
   font-weight: 500;
 }
 .form-control {
-  background: rgba(15, 23, 42, 0.6);
+  background: #f8f5f0;
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   padding: 0.75rem;
@@ -336,9 +341,10 @@ onMounted(() => {
   outline: none;
   border-color: var(--accent-primary);
   box-shadow: 0 0 0 2px var(--accent-glow);
+  background: #fff;
 }
 .form-control option {
-  background: var(--bg-dark);
+  background: #fff;
 }
 .form-actions {
   display: flex;
@@ -347,8 +353,8 @@ onMounted(() => {
   margin-top: 1rem;
 }
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  background: #f0ebe3;
+  color: var(--text-primary);
   border: 1px solid var(--border-color);
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -357,6 +363,6 @@ onMounted(() => {
   transition: all 0.3s ease;
 }
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: #e0d8cd;
 }
 </style>

@@ -23,8 +23,8 @@
             <td>{{ cliente.correo }}</td>
             <td>{{ cliente.telefono || 'N/A' }}</td>
             <td>
-              <button class="btn-icon" title="Editar" @click="editCliente(cliente.id_cliente)">✏️</button>
-              <button class="btn-icon text-danger" title="Eliminar" @click="deleteCliente(cliente.id_cliente)">🗑️</button>
+              <button class="btn-text" title="Editar" @click="editCliente(cliente.id_cliente)">Editar</button>
+              <button class="btn-text text-danger" title="Eliminar" @click="deleteCliente(cliente.id_cliente)">Eliminar</button>
             </td>
           </tr>
           <tr v-if="clientes.length === 0">
@@ -187,18 +187,23 @@ onMounted(() => {
 .data-table tbody tr:hover {
   background: rgba(255,255,255,0.05);
 }
-.btn-icon {
+.btn-text {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.2rem;
-  margin-right: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin-right: 0.75rem;
   opacity: 0.8;
-  transition: opacity 0.2s;
+  transition: all 0.2s;
 }
-.btn-icon:hover {
+.btn-text:hover {
   opacity: 1;
-  transform: scale(1.1);
+  text-decoration: underline;
+}
+.btn-text.text-danger {
+  color: var(--danger);
 }
 
 /* Modal styles */
@@ -243,7 +248,7 @@ onMounted(() => {
   font-weight: 500;
 }
 .form-control {
-  background: rgba(15, 23, 42, 0.6);
+  background: #f8f5f0;
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   padding: 0.75rem;
@@ -255,6 +260,7 @@ onMounted(() => {
   outline: none;
   border-color: var(--accent-primary);
   box-shadow: 0 0 0 2px var(--accent-glow);
+  background: #fff;
 }
 .form-actions {
   display: flex;
@@ -263,8 +269,8 @@ onMounted(() => {
   margin-top: 1rem;
 }
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  background: #f0ebe3;
+  color: var(--text-primary);
   border: 1px solid var(--border-color);
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -273,6 +279,7 @@ onMounted(() => {
   transition: all 0.3s ease;
 }
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: #e0d8cd;
 }
+
 </style>

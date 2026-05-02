@@ -103,11 +103,11 @@
                   <td>{{ item.nombre }}</td>
                   <td>${{ item.precio.toFixed(2) }}</td>
                   <td>
-                    <input type="number" v-model.number="item.cantidad" min="1" :max="item.maxStock" @change="updateCart" style="width: 60px; background: rgba(0,0,0,0.3); color: white; border: 1px solid var(--border-color); border-radius: 4px; padding: 2px 5px;" />
+                    <input type="number" v-model.number="item.cantidad" min="1" :max="item.maxStock" @change="updateCart" style="width: 60px; background: #f8f5f0; color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 2px 5px;" />
                   </td>
                   <td>${{ (item.precio * item.cantidad).toFixed(2) }}</td>
                   <td>
-                    <button type="button" class="btn-icon text-danger" @click="removeFromCart(index)">❌</button>
+                    <button type="button" class="btn-text text-danger" @click="removeFromCart(index)">Eliminar</button>
                   </td>
                 </tr>
                 <tr v-if="form.items.length === 0">
@@ -316,17 +316,23 @@ onMounted(() => {
   font-size: 0.95rem;
 }
 
-.btn-icon {
+.btn-text {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin-right: 0.75rem;
   opacity: 0.8;
-  transition: opacity 0.2s;
+  transition: all 0.2s;
 }
-.btn-icon:hover {
+.btn-text:hover {
   opacity: 1;
-  transform: scale(1.1);
+  text-decoration: underline;
+}
+.btn-text.text-danger {
+  color: var(--danger);
 }
 
 /* Modal styles */
@@ -353,7 +359,7 @@ onMounted(() => {
   animation: modal-in 0.3s ease-out;
 }
 .modal-lg {
-  max-width: 800px;
+  max-width: 900px;
 }
 @keyframes modal-in {
   from { opacity: 0; transform: translateY(-20px) scale(0.95); }
@@ -380,7 +386,7 @@ onMounted(() => {
   font-weight: 500;
 }
 .form-control {
-  background: rgba(15, 23, 42, 0.6);
+  background: #f8f5f0;
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   padding: 0.75rem;
@@ -392,9 +398,10 @@ onMounted(() => {
   outline: none;
   border-color: var(--accent-primary);
   box-shadow: 0 0 0 2px var(--accent-glow);
+  background: #fff;
 }
 .form-control option {
-  background: var(--bg-dark);
+  background: #fff;
 }
 .form-actions {
   display: flex;
@@ -403,8 +410,8 @@ onMounted(() => {
   margin-top: 1rem;
 }
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  background: #f0ebe3;
+  color: var(--text-primary);
   border: 1px solid var(--border-color);
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -413,10 +420,10 @@ onMounted(() => {
   transition: all 0.3s ease;
 }
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: #e0d8cd;
 }
 .cart-section {
-  background: rgba(0,0,0,0.1);
+  background: rgb(255, 255, 255);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 1.5rem;

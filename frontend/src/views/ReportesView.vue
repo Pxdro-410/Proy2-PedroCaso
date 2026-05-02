@@ -256,7 +256,7 @@ onMounted(() => {
 
 .badge-warning {
   background: rgba(245, 158, 11, 0.2);
-  color: #fcd34d;
+  color: #a47e00;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-size: 0.9rem;

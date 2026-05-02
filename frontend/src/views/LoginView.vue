@@ -2,8 +2,7 @@
   <div class="login-container">
     <div class="glass-panel login-box">
       <div class="login-header">
-        <div class="logo-icon-large"></div>
-        <h2>StoreAdmin</h2>
+        <h2>Gestion Tienda</h2>
         <p class="text-secondary">Inicia sesión en tu cuenta</p>
       </div>
 
@@ -92,14 +91,6 @@ const handleLogin = async () => {
   margin-bottom: 2rem;
 }
 
-.logo-icon-large {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 1rem;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  box-shadow: 0 4px 12px var(--accent-glow);
-}
 
 .login-header h2 {
   font-weight: 700;
@@ -126,7 +117,7 @@ const handleLogin = async () => {
 }
 
 .form-control {
-  background: rgba(15, 23, 42, 0.6);
+  background: #f8f5f0;
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   padding: 0.75rem;
@@ -140,16 +131,16 @@ const handleLogin = async () => {
   outline: none;
   border-color: var(--accent-primary);
   box-shadow: 0 0 0 2px var(--accent-glow);
-  background: rgba(30, 41, 59, 0.8);
+  background: #fff;
 }
 
 .error-msg {
-  color: #fca5a5;
+  color: #991b1b;
   background: rgba(239, 68, 68, 0.1);
   padding: 0.75rem;
   border-radius: 8px;
   font-size: 0.9rem;
   text-align: center;
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
 }
 </style>
