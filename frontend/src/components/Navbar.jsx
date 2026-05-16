@@ -1,23 +1,21 @@
 import { NavLink, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext.jsx'
 import styles from './Navbar.module.css'
 
 const NAV_ITEMS = [
-  { to: '/', label: 'Dashboard', end: true },
+  { to: '/',          label: 'Dashboard', end: true },
   { to: '/productos', label: 'Productos' },
-  { to: '/clientes', label: 'Clientes' },
-  { to: '/ventas', label: 'Ventas' },
-  { to: '/reportes', label: 'Reportes' },
+  { to: '/clientes',  label: 'Clientes' },
+  { to: '/ventas',    label: 'Ventas' },
+  { to: '/reportes',  label: 'Reportes' },
 ]
 
 export default function Navbar() {
+  const { user, logout } = useAuth()
   const navigate = useNavigate()
 
-  const userRaw = localStorage.getItem('user')
-  const user = userRaw ? JSON.parse(userRaw) : null
-
   const handleLogout = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
+    logout()
     navigate('/login', { replace: true })
   }
 
@@ -49,7 +47,7 @@ export default function Navbar() {
       <div className={styles.actions}>
         {user && (
           <div className={styles.userInfo}>
-            <div className={styles.avatar}>
+            <div className={styles.avatar} title={user.puesto ?? ''}>
               {user.nombre?.charAt(0)?.toUpperCase() ?? 'U'}
             </div>
             <span className={styles.userName}>{user.nombre}</span>
