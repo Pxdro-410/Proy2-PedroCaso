@@ -1,14 +1,19 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext.jsx'
 import styles from './LoginView.module.css'
 
 export default function LoginView() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [errorMsg, setErrorMsg] = useState('')
+  const [username, setUsername]   = useState('')
+  const [password, setPassword]   = useState('')
+  const [errorMsg, setErrorMsg]   = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
+  const { login, isAuthenticated } = useAuth()
   const navigate = useNavigate()
+
+  // Si ya está autenticado redirigir al dashboard
+  if (isAuthenticated) return <Navigate to="/" replace />
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -24,9 +29,8 @@ export default function LoginView() {
       const data = await res.json()
 
       if (res.ok) {
-        // Temporal — en PASO 2 esto irá al AuthContext
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('user', JSON.stringify(data.user))
+        // Guardar sesión en el Context (que también persiste en localStorage)
+        login(data.token, data.user)
         navigate('/', { replace: true })
       } else {
         setErrorMsg(data.message || 'Credenciales inválidas')
@@ -43,6 +47,7 @@ export default function LoginView() {
       <div className={styles.box}>
         {/* Header */}
         <div className={styles.header}>
+          <div className={styles.logoCircle}>🏪</div>
           <h1 className={styles.title}>Gestión Tienda</h1>
           <p className={styles.subtitle}>Inicia sesión en tu cuenta</p>
         </div>
