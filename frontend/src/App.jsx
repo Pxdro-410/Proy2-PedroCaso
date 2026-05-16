@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
+import { useAuth } from './context/AuthContext.jsx'
 import MainLayout from './components/layouts/MainLayout.jsx'
 import LoginView from './views/LoginView.jsx'
 import HomeView from './views/HomeView.jsx'
@@ -7,10 +8,10 @@ import ClientesView from './views/ClientesView.jsx'
 import VentasView from './views/VentasView.jsx'
 import ReportesView from './views/ReportesView.jsx'
 
-// Placeholder rutas protegidas
+// Ruta protegida — redirige a /login si no está autenticado
 function PrivateRoute({ children }) {
-  const token = localStorage.getItem('token')
-  return token ? children : <Navigate to="/login" replace />
+  const { isAuthenticated } = useAuth()
+  return isAuthenticated ? children : <Navigate to="/login" replace />
 }
 
 export default function App() {
@@ -19,7 +20,7 @@ export default function App() {
       {/* Ruta pública */}
       <Route path="/login" element={<LoginView />} />
 
-      {/* Rutas protegidas dentro del layout principal */}
+      {/* Rutas protegidas con layout principal */}
       <Route
         path="/"
         element={
