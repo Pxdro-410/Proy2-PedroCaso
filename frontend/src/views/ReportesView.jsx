@@ -180,11 +180,19 @@ export default function ReportesView() {
                 Ingresos totales por categoría (Q)
               </p>
               {(() => {
-                const maxVal = Math.max(...ventasCat.map(r => Number(r.ingresos_totales)), 1)
-                const w = yAxisWidth(maxVal)
+                // Convertir a Number explícitamente 
+                const datos = ventasCat.map(r => ({
+                  ...r,
+                  ingresos_totales: Number(r.ingresos_totales),
+                }))
+                const maxVal = Math.max(...datos.map(r => r.ingresos_totales), 1)
+                // Redondear el techo
+                const magnitude = Math.pow(10, Math.floor(Math.log10(maxVal)))
+                const ceiling = Math.ceil(maxVal / magnitude) * magnitude
+                const w = yAxisWidth(ceiling)
                 return (
                   <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={ventasCat} margin={{ top: 5, right: 20, left: w - 40, bottom: 65 }}>
+                    <BarChart data={datos} margin={{ top: 5, right: 20, left: w - 40, bottom: 65 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
                       <XAxis
                         dataKey="categoria"
@@ -197,11 +205,12 @@ export default function ReportesView() {
                         width={w}
                         tickFormatter={fmtAxis}
                         tick={{ fontSize: 11, fill: 'var(--text-muted)' }}
-                        domain={[0, 'auto']}
+                        domain={[0, ceiling]}
+                        allowDataOverflow={false}
                       />
                       <Tooltip content={<CustomTooltip />} />
                       <Bar dataKey="ingresos_totales" name="Ingresos (Q)" radius={[4, 4, 0, 0]}>
-                        {ventasCat.map((_, i) => (
+                        {datos.map((_, i) => (
                           <Cell key={i} fill={COLORS[i % COLORS.length]} />
                         ))}
                       </Bar>
@@ -209,6 +218,7 @@ export default function ReportesView() {
                   </ResponsiveContainer>
                 )
               })()}
+
             </div>
 
             {/* Gráfica de pastel, distribución */}
