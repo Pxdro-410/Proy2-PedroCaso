@@ -1,14 +1,14 @@
-# Gestión Tienda – Proyecto 2
+# Gestión Tienda tecnológica – Proyecto 2
 
-**Curso:** Bases de Datos 1 - Universidad del Valle de Guatemala  
+**Curso:** Bases de Datos 1 — Universidad del Valle de Guatemala  
 **Autor:** Pedro Caso – 241286  
-**Puntuación esperada:** 130/140
+**Rama:** `proy2/web`
 
 ---
 
 ## Descripción
 
-Aplicación web fullstack para gestionar el **inventario y las ventas** de una tienda. Permite administrar productos, clientes, empleados y proveedores, registrar ventas con detalle de artículos, y consultar reportes avanzados con SQL complejo.
+Aplicación web fullstack para gestionar el inventario y las ventas de una tienda. Permite a los empleados autenticados administrar productos, clientes y proveedores, registrar ventas con detalle de artículos, y consultar reportes avanzados con gráficas interactivas.
 
 ---
 
@@ -18,8 +18,11 @@ Aplicación web fullstack para gestionar el **inventario y las ventas** de una t
 |---|---|
 | Base de datos | PostgreSQL 16 |
 | Backend | Node.js + Nitro (H3) |
-| Frontend | Vue 3 + Vite|
+| Frontend | **React 18 + Vite** |
 | Autenticación | JWT (jsonwebtoken + bcrypt) |
+| Gráficas | Recharts |
+| Tests | Vitest + Testing Library |
+| Linting | ESLint v9 (flat config) |
 | Contenerización | Docker + Docker Compose |
 
 ---
@@ -29,22 +32,32 @@ Aplicación web fullstack para gestionar el **inventario y las ventas** de una t
 ```
 Proy2-PedroCaso/
 ├── database/
-│   ├── 01_init.sql       # DDL: creación de tablas
-│   ├── 02_seed.sql       # Datos de prueba (25 registros por tabla)
-│   └── 03_views.sql      # Vistas SQL utilizadas por el backend
+│   ├── 01_init.sql          # DDL: creación de tablas + restricciones
+│   ├── 02_seed.sql          # Datos de prueba
+│   └── 03_views.sql         # Vistas SQL utilizadas por el backend
 ├── backend/
-│   ├── routes/api/       # Endpoints REST (productos, clientes, ventas, reportes, auth)
-│   ├── utils/db.ts       # Pool de conexión a PostgreSQL
+│   ├── routes/api/
+│   │   ├── auth/            # POST /api/auth/login
+│   │   ├── productos/       # CRUD completo
+│   │   ├── clientes/        # CRUD completo
+│   │   ├── ventas/          # CRUD + transacciones
+│   │   ├── categorias/      # CRUD
+│   │   ├── proveedores/     # CRUD
+│   │   ├── empleados/       # GET, POST
+│   │   └── reportes/        # 4 endpoints de análisis
+│   ├── utils/db.ts           # Pool de conexión a PostgreSQL
 │   └── nitro.config.ts
 ├── frontend/
 │   ├── src/
-│   │   ├── views/        # Vistas: Login, Dashboard, Productos, Clientes, Ventas, Reportes
-│   │   ├── components/   # Navbar, layouts
-│   │   └── stores/       # Pinia store para autenticación
+│   │   ├── context/         # AuthContext (Context API + useReducer)
+│   │   ├── components/      # Navbar, MainLayout
+│   │   ├── views/           # Login, Home, Productos, Clientes, Ventas, Reportes
+│   │   └── test/            # Vitest: cartReducer, AuthContext, LoginView
+│   ├── eslint.config.js      # ESLint v9 flat config
 │   └── vite.config.js
 ├── docker-compose.yml
-├── .env                  # Variables de entorno (no incluido en el repo)
-└── .env.example          # Plantilla de variables de entorno
+├── .env.example              # Plantilla de variables de entorno
+└── README.md
 ```
 
 ---
@@ -61,21 +74,18 @@ Proy2-PedroCaso/
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/Pxdro-410/Proy2-PedroCaso
+git clone https://github.com/Pxdro-410/Proy2-PedroCaso.git
 cd Proy2-PedroCaso
+git checkout proy2/web
 ```
 
 ### 2. Crear el archivo `.env`
-
-Copiar la plantilla y completar los valores. Para calificación, usar exactamente estos:
 
 ```bash
 cp .env.example .env
 ```
 
-Contenido del `.env`:
-En los comentarios de la entrega.
-
+Completar con los valores indicados en los comentarios de la entrega.
 
 ### 3. Levantar con Docker Compose
 
@@ -83,17 +93,17 @@ En los comentarios de la entrega.
 docker compose up --build
 ```
 
-### 4. Acceder a la aplicación
+La base de datos se inicializa automáticamente con `01_init.sql`, `02_seed.sql` y `03_views.sql`.
 
-Abrir en el navegador el siguiente puerto:
-nota: el puerto es mi carnet sin el 2 al inicio del 241286 -> 41286 
+### 4. Acceder a la aplicación
 
 ```
 http://localhost:41286
 ```
 
-### Credenciales de acceso
-tener en cuenta no agregar espacios de mas al escribir las credenciales de acceso 
+> El puerto corresponde al carnet `241286` (sin el `2` inicial).
+
+### Credenciales de acceso de prueba
 
 | Campo | Valor |
 |---|---|
@@ -114,42 +124,119 @@ docker compose down -v
 
 ---
 
-## Funcionalidades implementadas
-
-### Módulos CRUD
-- **Productos** – Crear, leer, editar y eliminar productos con categoría y proveedor
-- **Clientes** – Gestión completa de clientes
-
-### Registro de Ventas
-- Selección de cliente y vendedor (empleado)
-- Carrito de compras con múltiples productos
-- Validación de stock en tiempo real
-- Transacción explícita con `BEGIN / COMMIT / ROLLBACK` y manejo de errores
-
-### Reportes avanzados (visibles en UI)
-| Reporte | Técnica SQL |
-|---|---|
-| Ventas por categoría | `JOIN` triple + `GROUP BY` + `HAVING` + `SUM/COUNT/AVG` |
-| Productos con stock bajo | Subquery escalar en `WHERE` (`< SELECT AVG(...)`) |
-| Ranking de mejores clientes | CTE (`WITH`) + `RANK() OVER` + subquery con `EXISTS` |
-| Clientes sin compras | Subquery con `NOT IN` |
-
-### Vistas SQL (`03_views.sql`)
-- `vista_productos_detallados` – JOIN de producto + categoría + proveedor
-- `vista_ventas_resumen` – JOIN de venta + cliente + empleado
-- `vista_detalle_ventas` – JOIN de detalle_venta + producto
+## API Reference
 
 ### Autenticación
-- Login con JWT
-- Sesión manejada con Pinia (persiste en `localStorage`)
-- Rutas protegidas — redirige al login si no hay sesión activa
-- Logout
+
+| Método | Ruta | Body | Respuesta |
+|--------|------|------|-----------|
+| `POST` | `/api/auth/login` | `{ username, password }` | `{ token, user }` |
+
+> Todas las rutas siguientes requieren el header `Authorization: Bearer <token>`.
+
+---
+
+### Productos `/api/productos`
+
+| Método | Ruta | Body | Descripción |
+|--------|------|------|-------------|
+| `GET` | `/api/productos` | — | Listar todos (usa `vista_productos_detallados`) |
+| `POST` | `/api/productos` | `{ nombre, precio_actual, stock, id_categoria, id_proveedor }` | Crear producto |
+| `PUT` | `/api/productos/:id` | `{ nombre, precio_actual, stock, id_categoria, id_proveedor }` | Actualizar producto |
+| `DELETE` | `/api/productos/:id` | — | Eliminar producto |
+
+---
+
+### Clientes `/api/clientes`
+
+| Método | Ruta | Body | Descripción |
+|--------|------|------|-------------|
+| `GET` | `/api/clientes` | — | Listar todos |
+| `POST` | `/api/clientes` | `{ nombre_completo, correo, telefono? }` | Crear cliente |
+| `PUT` | `/api/clientes/:id` | `{ nombre_completo, correo, telefono? }` | Actualizar cliente |
+| `DELETE` | `/api/clientes/:id` | — | Eliminar (falla con 409 si tiene ventas) |
+
+---
+
+### Ventas `/api/ventas`
+
+| Método | Ruta | Body | Descripción |
+|--------|------|------|-------------|
+| `GET` | `/api/ventas` | — | Listar todas las ventas |
+| `GET` | `/api/ventas/:id` | — | Detalle completo con líneas |
+| `POST` | `/api/ventas` | `{ id_cliente, id_empleado, items: [{id_producto, cantidad}] }` | Registrar venta (transacción SQL) |
+| `DELETE` | `/api/ventas/:id` | — | Anular venta (restaura stock) |
+
+---
+
+### Categorías y Proveedores
+
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `GET` | `/api/categorias` | Listar categorías |
+| `POST` | `/api/categorias` | Crear categoría |
+| `GET` | `/api/proveedores` | Listar proveedores |
+| `POST` | `/api/proveedores` | Crear proveedor |
+
+---
+
+### Empleados
+
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `GET` | `/api/empleados` | Listar empleados |
+| `POST` | `/api/empleados` | Crear empleado |
+
+---
+
+### Reportes
+
+| Método | Ruta | Técnica SQL | Descripción |
+|--------|------|-------------|-------------|
+| `GET` | `/api/reportes/ventas-por-categoria` | `JOIN` triple + `GROUP BY` + `HAVING` + `SUM/COUNT/AVG` | Ingresos y ventas por categoría |
+| `GET` | `/api/reportes/stock-bajo` | Subquery escalar `WHERE stock < (SELECT AVG...)` | Productos bajo el promedio de stock |
+| `GET` | `/api/reportes/top-clientes` | CTE `WITH` + `RANK() OVER` + `EXISTS` | Top 10 clientes por monto |
+| `GET` | `/api/reportes/clientes-sin-compra` | Subquery `NOT IN` | Clientes sin ninguna compra |
+
+---
+
+### Códigos de error HTTP
+
+| Código | Significado |
+|--------|-------------|
+| `400` | Datos requeridos faltantes o inválidos |
+| `401` | Token JWT ausente o inválido |
+| `404` | Recurso no encontrado |
+| `405` | Método HTTP no permitido |
+| `409` | Conflicto de integridad (correo duplicado, FK activa) |
+| `500` | Error interno del servidor |
+
+Todos los errores devuelven JSON
+
+---
+
+## Frontend — Requisitos técnicos implementados
+
+| Requisito | Implementación |
+|---|---|
+| **React 18** | Migración completa desde Vue 3 |
+| **React Router v6** | 6 rutas con `PrivateRoute` y redirect automático |
+| **Context API** | `AuthContext` con `login()`, `logout()`, `isAuthenticated` |
+| **useReducer** | `cartReducer` en `VentasView` (ADD/REMOVE/UPDATE/CLEAR) |
+| **useState** | Múltiples estados por vista (lista, modal, alert, loading, search) |
+| **useEffect** | Fetch inicial con `Promise.all` en cada vista |
+| **useCallback** | Handlers de fetch y CRUD con referencias estables |
+| **useMemo** | Filtrado en tiempo real de listas (Productos, Clientes) |
+| **ESLint v9** | Flat config, 0 errores, 0 warnings |
+| **Vitest** | 20 tests — cartReducer (10), AuthContext (5), LoginView (5) |
+| **Diseño responsivo** | `@media` 768px y 480px, grids fluidos |
+| **Gráficas** | Recharts — BarChart vertical, BarChart horizontal, PieChart |
 
 ---
 
 ## Diseño de base de datos
 
-### Tablas principales
+### Tablas
 
 | Tabla | Descripción |
 |---|---|
@@ -163,23 +250,28 @@ docker compose down -v
 | `detalle_venta` | Líneas de producto por venta |
 
 ### Restricciones de integridad
+
 - `PRIMARY KEY` en todas las tablas
-- `FOREIGN KEY` con `ON DELETE RESTRICT` / `CASCADE` según la relación
+- `FOREIGN KEY` con `ON DELETE RESTRICT` / `CASCADE`
 - `NOT NULL` en campos obligatorios
-- `CHECK` en `precio_actual >= 0`, `stock >= 0`, `cantidad > 0`
-- `UNIQUE` en correos, DPI, usernames y combinación `(id_venta, id_producto)`
+- `CHECK`: `precio_actual >= 0`, `stock >= 0`, `cantidad > 0`
+- `UNIQUE`: correos, DPI, usernames, `(id_venta, id_producto)`
 
 ---
 
 ## Variables de entorno
-nota: aunque se sabe que no se debe agregar el .env, por ser un proyecto académico de práctica se agrega en los comentarios de la entrega para comodidad de los auxiliares
+
 | Variable | Descripción |
 |---|---|
-| `DB_USER` | Usuario de PostgreSQL (debe ser `proy2`) |
-| `DB_PASSWORD` | Contraseña de PostgreSQL (debe ser `secret`) |
+| `DB_USER` | Usuario de PostgreSQL |
+| `DB_PASSWORD` | Contraseña de PostgreSQL |
 | `DB_NAME` | Nombre de la base de datos |
 | `JWT_SECRET` | Clave secreta para firmar tokens JWT |
 
-## Informe del proyecto
-[Proyecto2Datos - Pedro Caso.docx](https://github.com/user-attachments/files/27294999/Proyecto2Datos.-.Pedro.Caso.docx)
+> Los valores exactos se incluyen en los comentarios de la entrega (no se versionan por seguridad).
 
+---
+
+## Informe del proyecto
+
+[Proyecto2Datos - Pedro Caso.docx](https://github.com/user-attachments/files/27294999/Proyecto2Datos.-.Pedro.Caso.docx)
