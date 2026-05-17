@@ -1,55 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Utility classes supplementary to index.css */
 
-:root {
-  --bg-dark: #e8dbc3;
-  --bg-panel: #FFFFFF;
-  --text-primary: #2e353e;
-  --text-secondary: #2e353e;
-  --accent-primary: #800000;
-  --accent-glow: rgba(128, 0, 0, 0.2);
-  --accent-secondary: #b30000;
-  --border-color: rgba(0, 0, 0, 0.12);
-  --danger: #dc2626;
-  --success: #059669;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg-dark);
-  color: var(--text-primary);
-  min-height: 100vh;
-}
-
-/* Panel utility */
 .glass-panel {
   background: var(--bg-panel);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-}
-
-/* Base button */
-.btn-primary {
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px var(--accent-glow);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px var(--accent-glow);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .page-container {
@@ -57,13 +12,6 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-}
-
-.page-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  color: var(--text-primary);
 }
 
 .p-6 {

@@ -4,10 +4,12 @@
 
 /* Tokens */
 :root {
-  --bg-base: #e8dbc3;
+  --bg-base: #f0f2f5;
+  --mouse-x: -999px;
+  --mouse-y: -999px;
   --bg-panel: #ffffff;
-  --bg-panel-hover: #fdf9f4;
-  --bg-input: #f8f5f0;
+  --bg-panel-hover: #f7f9fc;
+  --bg-input: #f4f6f9;
 
   --accent: #800000;
   --accent-dark: #5c0000;
@@ -73,6 +75,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
 }
 
 .app-shell {
@@ -111,11 +115,13 @@ body {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   padding: 1.5rem;
-  transition: box-shadow var(--transition);
+  transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
 }
 
 .card:hover {
   box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  border-color: rgba(128, 0, 0, 0.18);
 }
 
 .card-header {
@@ -305,11 +311,11 @@ td {
 }
 
 tbody tr {
-  transition: background var(--transition);
+  transition: background var(--transition), box-shadow var(--transition);
 }
 
 tbody tr:hover {
-  background: var(--bg-panel-hover);
+  background: var(--accent-subtle);
 }
 
 tbody tr:last-child td {
@@ -524,6 +530,7 @@ tbody tr:last-child td {
   transform: translateY(-50%);
   color: var(--text-muted);
   pointer-events: none;
+  display: flex;
 }
 
 .search-input {
