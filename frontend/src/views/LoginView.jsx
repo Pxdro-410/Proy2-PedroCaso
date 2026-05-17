@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Navigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
+import { Store, AlertTriangle } from 'lucide-react'
 import styles from './LoginView.module.css'
 
 export default function LoginView() {
@@ -47,7 +48,7 @@ export default function LoginView() {
       <div className={styles.box}>
         {/* Header */}
         <div className={styles.header}>
-          <div className={styles.logoCircle}>🏪</div>
+          <div className={styles.logoCircle}><Store size={28} color="#fff" /></div>
           <h1 className={styles.title}>Gestión Tienda</h1>
           <p className={styles.subtitle}>Inicia sesión en tu cuenta</p>
         </div>
@@ -85,7 +86,7 @@ export default function LoginView() {
 
           {errorMsg && (
             <div className="alert alert-error" role="alert">
-              ⚠️ {errorMsg}
+              <AlertTriangle size={16} /> {errorMsg}
             </div>
           )}
 

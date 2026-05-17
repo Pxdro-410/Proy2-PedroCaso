@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useAuth } from '../context/AuthContext.jsx'
+import { Search, Package, CheckCircle, AlertTriangle } from 'lucide-react'
 
 // helpers 
 const EMPTY_FORM = {
@@ -292,14 +293,14 @@ export default function ProductosView() {
       {/* Alert global */}
       {alert && (
         <div className={`alert alert-${alert.type}`} role="alert">
-          {alert.type === 'success' ? '✅' : '⚠️'} {alert.msg}
+          {alert.type === 'success' ? <CheckCircle size={16} /> : <AlertTriangle size={16} />} {alert.msg}
         </div>
       )}
 
       {/* Toolbar */}
       <div className="toolbar">
         <div className="search-wrapper">
-          <span className="search-icon">🔍</span>
+          <Search size={16} className="search-icon" />
           <input
             id="prod-search"
             type="search"
@@ -327,7 +328,7 @@ export default function ProductosView() {
           </div>
         ) : productosFiltrados.length === 0 ? (
           <div className="empty-state">
-            <span style={{ fontSize: '2.5rem' }}>📦</span>
+            <Package size={48} strokeWidth={1.2} />
             <p>{search ? 'Sin resultados para tu búsqueda.' : 'No hay productos registrados.'}</p>
           </div>
         ) : (

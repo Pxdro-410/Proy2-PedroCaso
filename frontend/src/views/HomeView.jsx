@@ -1,13 +1,14 @@
 import { useAuth } from '../context/AuthContext.jsx'
+import { Package, Users, ShoppingCart, BarChart2 } from 'lucide-react'
 
 export default function HomeView() {
   const { user } = useAuth()
 
   const cards = [
-    { label: 'Gestión', title: 'Productos', emoji: '📦', color: 'var(--accent)' },
-    { label: 'Directorio', title: 'Clientes', emoji: '👥', color: 'var(--info)' },
-    { label: 'Registros', title: 'Ventas', emoji: '🛒', color: 'var(--success)' },
-    { label: 'Análisis', title: 'Reportes', emoji: '📊', color: 'var(--warning)' },
+    { label: 'Gestión', title: 'Productos', Icon: Package, color: 'var(--accent)' },
+    { label: 'Directorio', title: 'Clientes', Icon: Users, color: 'var(--info)' },
+    { label: 'Registros', title: 'Ventas', Icon: ShoppingCart, color: 'var(--success)' },
+    { label: 'Análisis', title: 'Reportes', Icon: BarChart2, color: 'var(--warning)' },
   ]
 
   return (
@@ -19,11 +20,11 @@ export default function HomeView() {
 
       {/* Quick-access cards */}
       <div className="stats-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
-        {cards.map(({ label, title, emoji, color }) => (
+        {cards.map(({ label, title, Icon, color }) => (
           <div key={title} className="stat-card">
             <div className="stat-label">{label}</div>
-            <div className="stat-value" style={{ fontSize: '1.25rem', color }}>
-              {emoji} {title}
+            <div className="stat-value" style={{ fontSize: '1.25rem', color, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Icon size={22} strokeWidth={2} /> {title}
             </div>
           </div>
         ))}

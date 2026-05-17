@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useReducer } from 'react'
 import { useAuth } from '../context/AuthContext.jsx'
+import { ShoppingCart, CheckCircle, AlertTriangle } from 'lucide-react'
 
 // carrito de la nueva venta con useReducer
 const cartInitial = []
@@ -205,7 +206,7 @@ function NuevaVentaModal({ clientes, empleados, productos, onSave, onClose }) {
 
                 {cart.length === 0 ? (
                   <div className="empty-state" style={{ padding: '1.5rem', borderRadius: 'var(--radius-md)', background: 'var(--bg-input)' }}>
-                    <span>🛒</span>
+                    <ShoppingCart size={32} strokeWidth={1.2} />
                     <p style={{ fontSize: '0.85rem' }}>Sin productos. Agrégalos desde la lista.</p>
                   </div>
                 ) : (
@@ -416,7 +417,7 @@ export default function VentasView() {
 
       {alert && (
         <div className={`alert alert-${alert.type}`} role="alert">
-          {alert.type === 'success' ? '✅' : '⚠️'} {alert.msg}
+          {alert.type === 'success' ? <CheckCircle size={16} /> : <AlertTriangle size={16} />} {alert.msg}
         </div>
       )}
 
@@ -432,7 +433,7 @@ export default function VentasView() {
           <div className="loading-state"><div className="spinner" /><span>Cargando ventas…</span></div>
         ) : ventas.length === 0 ? (
           <div className="empty-state">
-            <span style={{ fontSize: '2.5rem' }}>🛒</span>
+            <ShoppingCart size={48} strokeWidth={1.2} />
             <p>No hay ventas registradas.</p>
           </div>
         ) : (

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useAuth } from '../context/AuthContext.jsx'
+import { Search, Users, CheckCircle, AlertTriangle } from 'lucide-react'
 
 // helpers
 const EMPTY_FORM = { nombre_completo: '', correo: '', telefono: '' }
@@ -204,13 +205,13 @@ export default function ClientesView() {
 
       {alert && (
         <div className={`alert alert-${alert.type}`} role="alert">
-          {alert.type === 'success' ? '✅' : '⚠️'} {alert.msg}
+          {alert.type === 'success' ? <CheckCircle size={16} /> : <AlertTriangle size={16} />} {alert.msg}
         </div>
       )}
 
       <div className="toolbar">
         <div className="search-wrapper">
-          <span className="search-icon">🔍</span>
+          <Search size={16} className="search-icon" />
           <input
             id="cli-search"
             type="search"
@@ -230,7 +231,7 @@ export default function ClientesView() {
           <div className="loading-state"><div className="spinner" /><span>Cargando clientes…</span></div>
         ) : clientesFiltrados.length === 0 ? (
           <div className="empty-state">
-            <span style={{ fontSize: '2.5rem' }}>👥</span>
+            <Users size={48} strokeWidth={1.2} />
             <p>{search ? 'Sin resultados.' : 'No hay clientes registrados.'}</p>
           </div>
         ) : (

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { BarChart2, CheckCircle2, PartyPopper, AlertTriangle, User } from 'lucide-react'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell,
   PieChart, Pie, Legend,
@@ -134,7 +135,7 @@ export default function ReportesView() {
       <p className="page-subtitle">Análisis del negocio con datos reales de la base de datos.</p>
 
       {alert && (
-        <div className="alert alert-error" role="alert">⚠️ {alert}</div>
+        <div className="alert alert-error" role="alert"><AlertTriangle size={16} /> {alert}</div>
       )}
 
       {/* KPIs rápidos */}
@@ -154,12 +155,12 @@ export default function ReportesView() {
           <div className="stat-value" style={{ color: stockBajo.productos.length > 0 ? 'var(--danger)' : 'var(--success)' }}>
             {stockBajo.productos.length}
           </div>
-          <div className="stat-icon">⚠️</div>
+          <div className="stat-icon"><AlertTriangle size={32} /></div>
         </div>
         <div className="stat-card">
           <div className="stat-label">Clientes sin compras</div>
           <div className="stat-value">{clientesSin.length}</div>
-          <div className="stat-icon">👤</div>
+          <div className="stat-icon"><User size={32} /></div>
         </div>
       </div>
 
@@ -171,7 +172,7 @@ export default function ReportesView() {
         defaultOpen={true}
       >
         {ventasCat.length === 0 ? (
-          <div className="empty-state"><span>📊</span><p>Sin datos de ventas aún.</p></div>
+          <div className="empty-state"><BarChart2 size={48} strokeWidth={1.2} /><p>Sin datos de ventas aún.</p></div>
         ) : (
           <>
             {/* Gráfica de barras, ingresos */}
@@ -375,7 +376,7 @@ export default function ReportesView() {
       >
         {stockBajo.productos.length === 0 ? (
           <div className="empty-state" style={{ marginTop: '1rem' }}>
-            <span style={{ fontSize: '2rem' }}>✅</span>
+            <CheckCircle2 size={40} strokeWidth={1.2} />
             <p>Todos los productos tienen stock saludable.</p>
           </div>
         ) : (
@@ -422,7 +423,7 @@ export default function ReportesView() {
       >
         {clientesSin.length === 0 ? (
           <div className="empty-state" style={{ marginTop: '1rem' }}>
-            <span style={{ fontSize: '2rem' }}>🎉</span>
+            <PartyPopper size={40} strokeWidth={1.2} />
             <p>¡Todos los clientes han realizado al menos una compra!</p>
           </div>
         ) : (
