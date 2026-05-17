@@ -379,16 +379,16 @@ export default function VentasView() {
       showAlert('success', `Venta #${data.id_venta} registrada correctamente`)
       setShowNueva(false)
       // Recargar ventas y productos (para actualizar stock)
-      const [vRes, pRes] = await Promise.all([
-        fetch('/api/ventas', { headers: authHeaders() }),
+      const [ventas, pRes] = await Promise.all([
+        fetchVentas(),
         fetch('/api/productos', { headers: authHeaders() }),
       ])
-      setVentas(await vRes.json())
+      setVentas(ventas)
       setProductos(await pRes.json())
     } catch (err) {
       showAlert('error', err.message)
     }
-  }, [authHeaders, showAlert])
+  }, [authHeaders, showAlert, fetchVentas])
 
   const handleAnular = useCallback(async (id) => {
     if (!window.confirm('¿Anular esta venta? El stock de productos será restaurado.')) return
