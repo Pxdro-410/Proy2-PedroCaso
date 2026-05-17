@@ -41,12 +41,13 @@ export default [
     files: ['src/test/**/*.{js,jsx}', '**/*.test.{js,jsx}'],
     languageOptions: {
       globals: {
-        describe: 'readonly',
-        it: 'readonly',
-        expect: 'readonly',
+        describe:   'readonly',
+        it:         'readonly',
+        expect:     'readonly',
         beforeEach: 'readonly',
-        afterEach: 'readonly',
-        vi: 'readonly',
+        afterEach:  'readonly',
+        vi:         'readonly',
+        global:     'writable',   // para mockear fetch en tests
       },
     },
   },
